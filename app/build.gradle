@@ -1,0 +1,16 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 31
+    defaultConfig {
+        applicationId "com.aktobyte.sample"
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0.1"
+    }
+}
+
+dependencies {
+   // implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
