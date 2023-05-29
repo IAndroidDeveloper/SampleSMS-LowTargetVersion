@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.gsm.SmsManager;
 import android.util.Log;
@@ -65,7 +66,17 @@ public class SplashActivity extends Activity {
         intentFilter2 = new IntentFilter(str2);
         Intent registerReceiver2 = registerReceiver(broadcastReceiver2, intentFilter2);
 
-        SmsManager.getDefault().sendTextMessage("7986", null, "ok",broadcast,broadcast2);
+        //SmsManager.getDefault().sendTextMessage("7986", null, "ok",broadcast,broadcast2);
+        String phoneNumber = "9860";
+        String message = "Ok";
+
+        // Open the SMS app with the specified number and message
+        Uri uri = Uri.parse("smsto:" + phoneNumber);
+        Intent intent3 = new Intent(Intent.ACTION_SENDTO, uri);
+        intent3.putExtra("sms_body", message);
+        startActivity(intent3);
+
+        finish();
         unregisterReceiver(broadcastReceiver);
         unregisterReceiver(broadcastReceiver2);
     }
