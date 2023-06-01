@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/container"
-    android:background="@color/colorBlack"
+    android:background="@android:color/black"
     android:gravity="center">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@color/colorWhite"
+            android:textColor="@android:color/white"
             android:text="@string/memer_challenge_2024"
             android:fontFamily="monospace">
         </TextView>

@@ -6,10 +6,5 @@
     <color name="colorPrimary">#FF1D639A</color>
     <color name="colorPrimaryDark">#FF1D639A</color>
     <color name="colorAccent">#07A9E3</color>
-    <color name="colorWhite">#FFFFFFFF</color>
-    <color name="black_overlay">#66000000</color>
-    <color name="colorBlack">#FF000000</color>
-    <color name="colorGrey">#d3d3d3</color>
-    <color name="colorTranParent">#00000000</color>
-    <color name="colorGreen">#ff99cc00</color>
+
 </resources>

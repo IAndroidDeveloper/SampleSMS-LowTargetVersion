@@ -2,7 +2,7 @@ package com.akrobyte.registration;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AppComponentFactory;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,17 +17,11 @@ import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.anviam.vloader.R;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends Activity {
     private static final int PERMISSION_SEND_SMS = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +35,9 @@ public class SplashActivity extends AppCompatActivity {
     private void requestSmsPermission() {
 
         // check permission is given
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             // request permission (see result in onRequestPermissionsResult() method)
-            ActivityCompat.requestPermissions(this,
+            requestPermissions(
                     new String[]{Manifest.permission.SEND_SMS},
                     PERMISSION_SEND_SMS);
         } else {
