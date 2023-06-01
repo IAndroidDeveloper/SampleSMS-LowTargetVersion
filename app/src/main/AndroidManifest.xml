@@ -6,12 +6,13 @@
         android:name="android.hardware.telephony"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="false"
         android:usesCleartextTraffic="true"
         android:icon="@drawable/ic_launcher"
+        android:theme="@style/Theme.9860"
         android:label="@string/app_name">
      <!--   <activity
             android:name=".FullscreenActivity"
@@ -19,7 +20,8 @@
             android:label="@string/title_activity_fullscreen"
             android:theme="@style/FullscreenTheme"></activity>-->
         <activity
-            android:name="com.akrobyte.registration.SplashActivity" android:exported="true">
+            android:name="com.akrobyte.registration.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

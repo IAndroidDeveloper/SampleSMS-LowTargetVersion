@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">9860 Registration</string>
     <string name="memer_challenge_2024">Memer Challenge 2024</string>
+    <string name="app_setting">App Setting</string>
+    <string name="open_setting_message">This feature requires access to app settings. Please allow the Read contacts permission. </string>
+    <string name="open_setting">Open Setting</string>
 </resources>
