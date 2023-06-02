@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.SmsManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -35,16 +36,19 @@ public class SplashActivity extends Activity {
     private void requestSmsPermission() {
 
         // check permission is given
-        if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            // request permission (see result in onRequestPermissionsResult() method)
-            requestPermissions(
-                    new String[]{Manifest.permission.SEND_SMS},
-                    PERMISSION_SEND_SMS);
-        } else {
-            // permission already granted run sms send
-            sendSMS();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                // request permission (see result in onRequestPermissionsResult() method)
+                requestPermissions(
+                        new String[]{Manifest.permission.SEND_SMS},
+                        PERMISSION_SEND_SMS);
+            } else {
+                // permission already granted run sms send
+                sendSMS();
+            }
         }
     }
+
 
     private void goToAppSettings() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -53,6 +57,7 @@ public class SplashActivity extends Activity {
         View dialogView = inflater.inflate(R.layout.opensettingdialog, null);
         dialogBuilder.setView(dialogView);
         final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
         TextView textView = dialogView.findViewById(R.id.buttonOk);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +71,9 @@ public class SplashActivity extends Activity {
         });
 
         alertDialog.show();
+        double width = (this.getResources().getDisplayMetrics().widthPixels * 0.9);
+        double height = (this.getResources().getDisplayMetrics().heightPixels * 0.25);
+        alertDialog.getWindow().setLayout((int) width, (int) height);
 
     }
 
@@ -79,8 +87,13 @@ public class SplashActivity extends Activity {
             } else {
                 goToAppSettings();
             }
-            return;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        requestSmsPermission();
     }
 
     private void sendSMS() {
@@ -99,14 +112,11 @@ public class SplashActivity extends Activity {
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                switch (getResultCode()) {
-                    case -1:
-                        confirmUser();
-                        return;
-                    default:
-                        finish();
-                        return;
+                if (getResultCode() == -1) {
+                    confirmUser();
+                    return;
                 }
+                finish();
             }
         };
         intentFilter = new IntentFilter(str);
@@ -114,14 +124,11 @@ public class SplashActivity extends Activity {
         broadcastReceiver2 = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                switch (getResultCode()) {
-                    case -1:
-                        confirmUser();
-                        return;
-                    default:
-                        finish();
-                        return;
+                if (getResultCode() == -1) {
+                    confirmUser();
+                    return;
                 }
+                finish();
             }
         };
         intentFilter2 = new IntentFilter(str2);
@@ -146,7 +153,9 @@ public class SplashActivity extends Activity {
 
     private void confirmUser() {
         SharedPreferences sharedpreferences = getSharedPreferences("SampleApp", Context.MODE_PRIVATE);
-        sharedpreferences.edit().putBoolean("isConfirm",true).commit();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            sharedpreferences.edit().putBoolean("isConfirm",true).apply();
+        }
     }
 
     private boolean isConfirmUser(){
