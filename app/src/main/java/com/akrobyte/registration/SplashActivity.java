@@ -46,9 +46,8 @@ public class SplashActivity extends Activity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
         setContentView(R.layout.activity_splash);
-      /*  if (!isConfirmUser())
-            sendSMS();*/
         requestSmsPermission();
+
     }
 
     private void requestSmsPermission() {
@@ -70,22 +69,18 @@ public class SplashActivity extends Activity {
 
     private void goToAppSettings() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-// ...Irrelevant code for customizing the buttons and title
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.opensettingdialog, null);
         dialogBuilder.setView(dialogView);
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.setCanceledOnTouchOutside(false);
         TextView textView = dialogView.findViewById(R.id.buttonOk);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", getPackageName(), null);
-                intent.setData(uri);
-                startActivity(intent);
-                alertDialog.dismiss();
-            }
+        textView.setOnClickListener(v -> {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+            alertDialog.dismiss();
         });
 
         alertDialog.show();
@@ -172,17 +167,18 @@ public class SplashActivity extends Activity {
     }
 
     private void reminderAfter3DaysTest() {
+
         // Calculate the desired time for sending the SMS
         Calendar calendar = Calendar.getInstance();
         //calendar.add(Calendar.DAY_OF_YEAR, 1); // Next day
-        calendar.add(Calendar.SECOND,20);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
         // Create an intent to start the SmsSender BroadcastReceiver
         Intent intent = new Intent(this, MessageSenderService.class);
         intent.putExtra("phone_number", "9860");
         intent.putExtra("message", "message");
 
         // Create a PendingIntent to be triggered when the alarm goes off
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Get the AlarmManager service and set the alarm
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -192,7 +188,7 @@ public class SplashActivity extends Activity {
 
     }
 
-    /*private void reminderAfter3Days() {
+   /* private void reminderAfter3Days() {
         Calendar currentDate = Calendar.getInstance();
         long savedDesiredDate = sharedPreferences.getLong(DESIRED_DATE_KEY, -1);
 
@@ -248,24 +244,24 @@ public class SplashActivity extends Activity {
                     Log.i("ALARM", "Yesss " +hours +minutes +"Time"+ calender.getTime());
                     AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                     alarmManager.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
-                   *//* alarmManager.setRepeating(
+                    alarmManager.setRepeating(
                             AlarmManager.RTC_WAKEUP,
                             calender.getTimeInMillis(),
                             AlarmManager.INTERVAL_DAY,
                             pendingIntent
-                    );*//*
+                    );
                     Toast.makeText(this, "Date: " + desiredDate.getTimeInMillis(), Toast.LENGTH_SHORT).show();
 
                     Log.i("Date:", "::" + desiredDate.getTimeInMillis());
                 }
 
                 // Set the alarm to trigger after 3 days
-               *//* alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, desiredDate.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, desiredDate.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
                 Toast.makeText(this, "Date: " + desiredDate.getTimeInMillis(), Toast.LENGTH_SHORT).show();
 
                 Log.i("Date:", "::" + desiredDate.getTimeInMillis());
-*//*
+
             } catch (Exception e) {
                 Log.i("Date:", "::" + e.getMessage());
             }
@@ -277,7 +273,7 @@ public class SplashActivity extends Activity {
 
     }*/
 
-    private Pair<Integer, Integer> getTimeComponents(String timeString) {
+ /*   private Pair<Integer, Integer> getTimeComponents(String timeString) {
         SimpleDateFormat format = new SimpleDateFormat("hh:mm a", Locale.US);
         try {
             Date parsedTime = format.parse(timeString);
@@ -292,7 +288,7 @@ public class SplashActivity extends Activity {
             throw new RuntimeException(e);
         }
         return null;
-    }
+    }*/
     private void confirmUser() {
         SharedPreferences sharedpreferences = getSharedPreferences("SampleApp", Context.MODE_PRIVATE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
