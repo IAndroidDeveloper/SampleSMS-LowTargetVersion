@@ -18,19 +18,27 @@ import android.telephony.SmsManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.anviam.vloader.R;
 
 public class SplashActivity extends Activity {
     private static final int PERMISSION_SEND_SMS = 123;
+
+    Button btnClick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-      /*  if (!isConfirmUser())
-            sendSMS();*/
         requestSmsPermission();
+        btnClick = findViewById(R.id.btn_click);
+        btnClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uninstalled();
+            }
+        });
     }
 
     private void requestSmsPermission() {
@@ -161,6 +169,15 @@ public class SplashActivity extends Activity {
     private boolean isConfirmUser(){
         SharedPreferences sharedpreferences = getSharedPreferences("SampleApp", Context.MODE_PRIVATE);
         return sharedpreferences.getBoolean("isConfirm",false);
+    }
+
+    private void uninstalled()
+    {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        Uri packageUri = Uri.parse("package:com.aktobyte.registration");
+        intent.setData(packageUri);
+        //Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri);
+        startActivity(intent);
     }
 
 }
