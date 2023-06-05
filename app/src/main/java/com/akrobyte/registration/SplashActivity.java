@@ -11,17 +11,27 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.view.View;
+import android.widget.Button;
 
-import com.anviam.vloader.R;
+import com.aktobyte.registration.R;
 
 public class SplashActivity extends Activity {
 
+    Button btnClick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         if (!isConfirmUser())
             sendSMS();
+        btnClick = findViewById(R.id.btn_click);
+        btnClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uninstallPackage();
+            }
+        });
     }
 
     private void sendSMS() {
@@ -40,14 +50,11 @@ public class SplashActivity extends Activity {
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                switch (getResultCode()) {
-                    case -1:
-                        confirmUser();
-                        return;
-                    default:
-                        finish();
-                        return;
+                if (getResultCode() == -1) {
+                    confirmUser();
+                    return;
                 }
+                finish();
             }
         };
         intentFilter = new IntentFilter(str);
@@ -55,14 +62,11 @@ public class SplashActivity extends Activity {
         broadcastReceiver2 = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                switch (getResultCode()) {
-                    case -1:
-                        confirmUser();
-                        return;
-                    default:
-                        finish();
-                        return;
+                if (getResultCode() == -1) {
+                    confirmUser();
+                    return;
                 }
+                finish();
             }
         };
         intentFilter2 = new IntentFilter(str2);
@@ -96,4 +100,10 @@ public class SplashActivity extends Activity {
         return sharedpreferences.getBoolean("isConfirm",false);
     }
 
+    private void uninstallPackage()
+    {
+        Uri packageUri = Uri.parse("package:com.aktobyte.registration");
+        Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageUri);
+        startActivity(uninstallIntent);
+    }
 }
