@@ -3,15 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/container"
-    android:background="@color/colorBlack"
-    android:gravity="center"
-    android:orientation="horizontal">
+    android:background="@android:color/black"
+    android:gravity="center">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="@string/memer_challenge_2024"
+            android:fontFamily="monospace">
+        </TextView>
+    </RelativeLayout>
 
-
-
-    <Button
-        android:id="@+id/btn_click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Uninstalled" />
 </LinearLayout>
