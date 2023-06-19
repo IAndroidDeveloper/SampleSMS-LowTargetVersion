@@ -25,6 +25,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.example.ACTION_MY_ACTION" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,7 +34,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.example.MY_BROADCAST_ACTION" />
+                <action android:name="com.example.ACTION_CUSTOM_BROADCAST" />
             </intent-filter>
         </receiver>
     </application>

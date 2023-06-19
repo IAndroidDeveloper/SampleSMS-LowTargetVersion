@@ -15,13 +15,12 @@ public class MessageSenderService extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-       // Toast.makeText(context, "Called", Toast.LENGTH_SHORT).show();
         String phoneNumber = intent.getStringExtra("phoneNumber");
         String message = intent.getStringExtra("message");
         sendSMS(context, phoneNumber, message);
-        Log.d("MessageSenderService", "Message sent to " + phoneNumber);
-    }
+   }
     private void sendSMS(Context context, String phoneNumber, String message) {
+        Log.i("MessageSenderService", "I'm running");
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage("9860", null, "message", null, null);
